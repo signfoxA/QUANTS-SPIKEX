@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Notebook</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .cell {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+        .markdown-cell {
+            background-color: #f9f9f9;
+        }
+        .code-cell {
+            background-color: #f5f5f5;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+            font-size: 13px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-left: 3px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cell markdown-cell">
+# Get Started<br>
+<h2>Install python package<br>
+You can install `pyspikex` from PyPi
+</div>
+<div class="cell code-cell">
+<pre><code>
+! pip install pyspikex --upgrade
+</code></pre>
+<div class="output">
+<strong>Output:</strong><br>
+<pre>zsh:1: command not found: pip
+</pre>
+</div>
+</div>
+<div class="cell markdown-cell">
+## Sign up as a Spikex.com user<br>
+Please refer to [Create account](https://www.spikex.com/en/accounts/register)<br>
+<h2>Create API Key<br>
+Please refer to [Create API Key](https://www.spikex.com/en/accounts/user/api)<br>
+<h2>Import Perp API
+</div>
+<div class="cell code-cell">
+<pre><code>
+from pyspikex.perp import Perp
+</code></pre>
+<div class="output">
+<strong>Output:</strong><br>
+</div>
+</div>
+<div class="cell markdown-cell">
+## Fill in your API key and Secret key
+</div>
+<div class="cell code-cell">
+<pre><code>
+api_key = &quot;xxxxx&quot;
+secret_key = &quot;xxxxx&quot;
+spikex = Perp(host=&quot;https://fapi.spikex.com&quot;, access_key=api_key, secret_key=secret_key)
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Get available funds
+</div>
+<div class="cell code-cell">
+<pre><code>
+print(spikex.get_account_capital())
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Get market data book tickers
+</div>
+<div class="cell code-cell">
+<pre><code>
+print(spikex.get_book_ticker(symbol=&#x27;btc_usdt&#x27;))
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Get market data depth
+</div>
+<div class="cell code-cell">
+<pre><code>
+print(spikex.get_depth(symbol=&#x27;btc_usdt&#x27;, depth=10))
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Get market data klines
+</div>
+<div class="cell code-cell">
+<pre><code>
+print(spikex.get_depth(symbol=&#x27;btc_usdt&#x27;, depth=10))
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Get symbol information
+</div>
+<div class="cell code-cell">
+<pre><code>
+print(spikex.get_market_config(symbol=&#x27;btc_usdt&#x27;))
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Place a limit order
+</div>
+<div class="cell code-cell">
+<pre><code>
+res = spikex.send_order(symbol=&#x27;btc_usdt&#x27;, price=10000, amount=1, order_side=&#x27;BUY&#x27;, order_type=&#x27;LIMIT&#x27;, position_side=&#x27;LONG&#x27;)
+print(res)
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Place a market order
+</div>
+<div class="cell code-cell">
+<pre><code>
+res = spikex.send_order(symbol=&#x27;btc_usdt&#x27;, price=10000, amount=1, order_side=&#x27;BUY&#x27;, order_type=&#x27;MARKET&#x27;, position_side=&#x27;LONG&#x27;)
+print(res)
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Cancel order
+</div>
+<div class="cell code-cell">
+<pre><code>
+res = spikex.cancel_order(order_id=12345678)
+print(res)
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Open Long
+</div>
+<div class="cell code-cell">
+<pre><code>
+res = spikex.send_order(symbol=&#x27;btc_usdt&#x27;, price=10000, amount=1, order_side=&#x27;BUY&#x27;, order_type=&#x27;LIMIT&#x27;, position_side=&#x27;LONG&#x27;)
+print(res)
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Close Long
+</div>
+<div class="cell code-cell">
+<pre><code>
+res = spikex.send_order(symbol=&#x27;btc_usdt&#x27;, price=10000, amount=1, order_side=&#x27;SELL&#x27;, order_type=&#x27;LIMIT&#x27;, position_side=&#x27;LONG&#x27;)
+print(res)
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Open Short
+</div>
+<div class="cell code-cell">
+<pre><code>
+res = spikex.send_order(symbol=&#x27;btc_usdt&#x27;, price=10000, amount=1, order_side=&#x27;SELL&#x27;, order_type=&#x27;LIMIT&#x27;, position_side=&#x27;SHORT&#x27;)
+print(res)
+</code></pre>
+</div>
+<div class="cell markdown-cell">
+## Close Short
+</div>
+<div class="cell code-cell">
+<pre><code>
+res = spikex.send_order(symbol=&#x27;btc_usdt&#x27;, price=10000, amount=1, order_side=&#x27;BUY&#x27;, order_type=&#x27;LIMIT&#x27;, position_side=&#x27;SHORT&#x27;)
+print(res)
+</code></pre>
+</div>
+
+</body>
+</html>
